@@ -9,8 +9,14 @@ import {
     StyleSheet,
     Text,
     View,
-    TextInput
+    TextInput,
+    Image,
+    TouchableOpacity,
+    Platform
 } from 'react-native';
+
+var Dimensions = require('Dimensions');
+var win = Dimensions.get('window');
 
 var Home = React.createClass({
     render() {
@@ -18,9 +24,6 @@ var Home = React.createClass({
             <View style={styles.container}>
                 {/*首页导航条*/}
                 {this.renderNavigatorBar()}
-                <Text style={styles.welcome}>
-                    首页
-                </Text>
             </View>
         );
     },
@@ -28,37 +31,57 @@ var Home = React.createClass({
     // 首页导航条
     renderNavigatorBar(){
         return (
-            <View>
+            <View style={styles.navBarStyle}>
                 {/*左边*/}
-                <Text>上海</Text>
+                <TouchableOpacity onPress={()=>{}}>
+                    <Text style={{marginTop:12,color:'white'}}>上海</Text>
+                </TouchableOpacity>
                 {/*中间*/}
                 <TextInput
                     placeholder='输入商家、品类、商圈'
+                    style={styles.topInputStyle}
                 />
                 {/*右边*/}
+                <View style={{marginTop:12}}>
+                    <TouchableOpacity onPress={()=>{}}>
+                        <Image source={{uri:'icon_homepage_message'}} style={styles.navRightImgStyle}/>
+                    </TouchableOpacity>
+                </View>
+                <View style={{marginTop:12}}>
+                    <TouchableOpacity onPress={()=>{}}>
+                        <Image source={{uri:'icon_homepage_scan'}} style={styles.navRightImgStyle}/>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     },
-
 });
 
 const styles = StyleSheet.create({
+    navBarStyle: {
+        height: Platform.OS === 'ios'?64:44,
+        backgroundColor: 'rgba(225,96,0,1.0)',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
+    topInputStyle: {
+        width: win.width * 0.7,
+        height: 35,
+        backgroundColor: 'white',
+        marginTop: 22,
+        borderRadius: 16,
+        paddingLeft: 10,
+    },
+    navRightImgStyle: {
+        height: 30,
+        width: 30,
+    },
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#e8e8e8',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
+
 });
 
 module.exports = Home;
